@@ -24,11 +24,5 @@ class MotorcycleListViewModel : ViewModel() {
             started = SharingStarted.WhileSubscribed(5_000L),
             initialValue = MotorcycleListState()
         )
-
-    fun onAction(action: MotorcycleListAction) {
-        when (action) {
-            else -> TODO("Handle actions")
-        }
-    }
-
+    //Funny that we won't be needing an "onAction" in this viewmodel
 }

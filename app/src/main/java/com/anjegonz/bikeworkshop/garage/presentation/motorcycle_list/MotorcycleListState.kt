@@ -1,6 +1,8 @@
 package com.anjegonz.bikeworkshop.garage.presentation.motorcycle_list
 
+import com.anjegonz.bikeworkshop.garage.domain.MotorcycleUIModel
+
 data class MotorcycleListState(
-    val paramOne: String = "default",
-    val paramTwo: List<String> = emptyList(),
+    val isLoading: Boolean = true,
+    val motorcycles: List<MotorcycleUIModel> = emptyList(),
 )
