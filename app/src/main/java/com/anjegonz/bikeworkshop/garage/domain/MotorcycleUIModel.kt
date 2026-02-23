@@ -1,18 +1,11 @@
 package com.anjegonz.bikeworkshop.garage.domain
 
-data class Motorcycle(
-    val id: Int = 0,
+data class MotorcycleUIModel(
+    val id: Int,
     val manufacturer: String,
     val model: String,
     val powerPS: Int,
     val type: MotorcycleType = MotorcycleType.CRUISER,
-    val yearOfConstruction: Int
+    val yearOfConstruction : Int,
+    val age: Int
 )
-
-enum class MotorcycleType {
-    CRUISER,
-    ADVENTURE,
-    SPORT,
-    CAFE_RACER
-}
-
