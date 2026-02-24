@@ -1,15 +1,12 @@
 package com.anjegonz.bikeworkshop.garage.presentation.motorcycle_list
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -32,14 +29,12 @@ fun MotorcycleListRoot(
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     MotorcycleListScreen(
-        state = state,
+        // state = state,
         onAction = { action ->
             when (action) {
                 is MotorcycleListAction.OnMotorcycleClick -> {
                     onNavigation(action.motorcycle)
                 }
-
-                MotorcycleListAction.OnNewMotorcycleClicked -> onNavigation(null)
             }
 
         }
@@ -48,24 +43,15 @@ fun MotorcycleListRoot(
 
 @Composable
 fun MotorcycleListScreen(
-    state: MotorcycleListState,
+    state: MotorcycleListState = sometest,
     onAction: (MotorcycleListAction) -> Unit,
 ) {
 
-    Scaffold(
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { onAction(MotorcycleListAction.OnNewMotorcycleClicked) },
-                containerColor = MaterialTheme.colorScheme.primary
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Add Motorcycle",
-                    tint = MaterialTheme.colorScheme.onPrimary
-                )
-            }
-        }
-    ) { paddingValues ->
+    Column(
+        modifier = Modifier
+            .statusBarsPadding()
+    ) {
+
         val lazyListState = rememberLazyListState()
         if (state.isLoading) {
             //Loading indicator if time permits
@@ -73,8 +59,7 @@ fun MotorcycleListScreen(
             //A nice image and an "empty screen" if time permits
             Box(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues),
+                    .fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
 
@@ -86,22 +71,18 @@ fun MotorcycleListScreen(
                 )
             }
         } else {
-
             MotorcycleList(
                 motorcycles = state.motorcycles,
                 onClick = {
                     onAction(MotorcycleListAction.OnMotorcycleClick(it))
                 },
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues),
+                    .fillMaxSize(),
                 scrollState = lazyListState
             )
         }
-
     }
-    
-    
+
 }
 
 @Preview(showBackground = true)
