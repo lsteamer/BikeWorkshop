@@ -26,14 +26,3 @@ fun MotorcycleAddScreen(
 ) {
 
 }
-
-@Preview
-@Composable
-private fun Preview() {
-    BikeWorkshopTheme {
-        MotorcycleAddScreen(
-            state = MotorcycleAddState(),
-            onAction = {}
-        )
-    }
-}

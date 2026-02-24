@@ -1,6 +1,14 @@
 package com.anjegonz.bikeworkshop.garage.presentation.motorcycle_add
 
+import com.anjegonz.bikeworkshop.garage.domain.MotorcycleType
+
 data class MotorcycleAddState(
-    val paramOne: String = "default",
-    val paramTwo: List<String> = emptyList(),
+
+    //validate each of the data, given time
+    val manufacturerText: String = "",
+    val modelText: String = "",
+    val powerPS: String = "",
+    val motorcycleType: MotorcycleType = MotorcycleType.CRUISER,
+    val yearOfConstructionValue: String = "",
+    val areAllFieldsFilled: Boolean = false
 )
