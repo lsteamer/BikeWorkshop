@@ -1,4 +1,6 @@
-package com.anjegonz.bikeworkshop.garage.domain
+package com.anjegonz.bikeworkshop.garage.presentation.core
+
+import com.anjegonz.bikeworkshop.garage.domain.MotorcycleType
 
 data class MotorcycleUIModel(
     val id: Int,

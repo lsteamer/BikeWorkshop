@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.anjegonz.bikeworkshop.garage.domain.MotorcycleType
-import com.anjegonz.bikeworkshop.garage.domain.MotorcycleUIModel
+import com.anjegonz.bikeworkshop.garage.presentation.core.MotorcycleUIModel
 
 @Composable
 fun MotorcycleList(

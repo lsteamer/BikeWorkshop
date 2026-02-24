@@ -22,7 +22,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.anjegonz.bikeworkshop.garage.domain.MotorcycleType
-import com.anjegonz.bikeworkshop.garage.domain.MotorcycleUIModel
+import com.anjegonz.bikeworkshop.garage.presentation.core.MotorcycleUIModel
 import com.anjegonz.bikeworkshop.garage.presentation.core.toImageRes
 
 @Composable

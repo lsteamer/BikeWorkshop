@@ -5,14 +5,6 @@ data class Motorcycle(
     val manufacturer: String,
     val model: String,
     val powerPS: Int,
-    val type: MotorcycleType = MotorcycleType.CRUISER,
+    val type: MotorcycleType,
     val yearOfConstruction: Int
 )
-
-enum class MotorcycleType {
-    CRUISER,
-    ADVENTURE,
-    SPORT,
-    CAFE_RACER
-}
-

@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.anjegonz.bikeworkshop.garage.domain.MotorcycleType
-import com.anjegonz.bikeworkshop.garage.domain.MotorcycleUIModel
+import com.anjegonz.bikeworkshop.garage.presentation.core.MotorcycleUIModel
 import com.anjegonz.bikeworkshop.garage.presentation.motorcycle_list.components.MotorcycleList
 
 @Composable
