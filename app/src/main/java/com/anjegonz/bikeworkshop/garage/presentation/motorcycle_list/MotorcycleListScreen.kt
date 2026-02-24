@@ -28,8 +28,9 @@ fun MotorcycleListRoot(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
+    //Root is different from screen because that way we can test the screen without needing a viewModel
     MotorcycleListScreen(
-        // state = state,
+        state = state,
         onAction = { action ->
             when (action) {
                 is MotorcycleListAction.OnMotorcycleClick -> {
@@ -43,7 +44,7 @@ fun MotorcycleListRoot(
 
 @Composable
 fun MotorcycleListScreen(
-    state: MotorcycleListState = sometest,
+    state: MotorcycleListState,
     onAction: (MotorcycleListAction) -> Unit,
 ) {
 

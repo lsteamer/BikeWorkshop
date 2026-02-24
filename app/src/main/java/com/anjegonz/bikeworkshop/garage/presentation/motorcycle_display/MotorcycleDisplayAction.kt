@@ -1,5 +1,8 @@
 package com.anjegonz.bikeworkshop.garage.presentation.motorcycle_display
 
-sealed interface MotorcycleDisplayAction {
+import com.anjegonz.bikeworkshop.garage.domain.MotorcycleUIModel
 
+sealed interface MotorcycleDisplayAction {
+    data class onMotorcycleDeleteClick(val motorcycle: MotorcycleUIModel) : MotorcycleDisplayAction
+    data class onMotorcycleClick(val motorcycle: MotorcycleUIModel) : MotorcycleDisplayAction
 }
