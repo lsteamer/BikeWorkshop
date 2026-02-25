@@ -28,9 +28,9 @@ import com.anjegonz.bikeworkshop.garage.presentation.motorcycle_add.MotorcycleAd
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MotorcycleTextFields(
-    manufacturerText: String = "",
-    modelText: String = "",
-    powerPS: String = "",
+    manufacturerText: String,
+    modelText: String,
+    powerPS: String,
     motorcycleType: MotorcycleType = MotorcycleType.CRUISER,
     yearOfConstructionValue: String,
     onAction: (MotorcycleAddAction) -> Unit,

@@ -124,7 +124,8 @@ class MainActivity : ComponentActivity() {
                         composable<NavRoute.MotorcycleAdd> {
                             val viewModel = koinViewModel<MotorcycleAddViewModel>()
                             MotorcycleAddRoot(
-                                viewModel = viewModel
+                                viewModel = viewModel,
+                                onNavigateBack = { navController.navigateUp() }
                             )
                         }
 

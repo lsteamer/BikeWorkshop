@@ -12,13 +12,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.anjegonz.bikeworkshop.garage.domain.Motorcycle
 import com.anjegonz.bikeworkshop.garage.domain.MotorcycleType
-import com.anjegonz.bikeworkshop.garage.presentation.core.MotorcycleUIModel
 
 @Composable
 fun MotorcycleList(
-    motorcycles: List<MotorcycleUIModel>,
-    onClick: (MotorcycleUIModel) -> Unit,
+    motorcycles: List<Motorcycle>,
+    onClick: (Motorcycle) -> Unit,
     modifier: Modifier = Modifier,
     scrollState: LazyListState = rememberLazyListState()
 ) {
@@ -49,41 +49,37 @@ fun MotorcycleList(
 @Composable
 private fun PreviewMotorcycleList() {
     val motorcycles = listOf(
-        MotorcycleUIModel(
+        Motorcycle(
             id = 1,
             manufacturer = "Ducati",
             model = "Panigale V4",
             powerPS = 208,
             type = MotorcycleType.SPORT,
-            yearOfConstruction = 2021,
-            age = 4
+            yearOfConstruction = 2021
         ),
-        MotorcycleUIModel(
+        Motorcycle(
             id = 2,
             manufacturer = "BMW",
             model = "R 1250 GS",
             powerPS = 136,
             type = MotorcycleType.ADVENTURE,
-            yearOfConstruction = 2020,
-            age = 5
+            yearOfConstruction = 2020
         ),
-        MotorcycleUIModel(
+        Motorcycle(
             id = 3,
             manufacturer = "Harley-Davidson",
             model = "Softail Standard",
             powerPS = 95,
             type = MotorcycleType.CRUISER,
-            yearOfConstruction = 2019,
-            age = 6
+            yearOfConstruction = 2019
         ),
-        MotorcycleUIModel(
+        Motorcycle(
             id = 4,
             manufacturer = "Triumph",
             model = "Thruxton RS",
             powerPS = 105,
             type = MotorcycleType.CAFE_RACER,
-            yearOfConstruction = 2022,
-            age = 3
+            yearOfConstruction = 2022
         )
     )
     MotorcycleList(

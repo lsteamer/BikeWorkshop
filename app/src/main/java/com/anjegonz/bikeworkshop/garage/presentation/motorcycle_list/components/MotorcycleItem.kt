@@ -21,13 +21,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.anjegonz.bikeworkshop.garage.domain.Motorcycle
 import com.anjegonz.bikeworkshop.garage.domain.MotorcycleType
-import com.anjegonz.bikeworkshop.garage.presentation.core.MotorcycleUIModel
 import com.anjegonz.bikeworkshop.garage.presentation.core.toImageRes
 
 @Composable
 fun MotorcycleItem(
-    motorcycle: MotorcycleUIModel,
+    motorcycle: Motorcycle,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -85,14 +85,13 @@ fun MotorcycleItem(
 @Preview
 @Composable
 private fun PreviewMotorcycleItem() {
-    val motorcycle = MotorcycleUIModel(
+    val motorcycle = Motorcycle(
         id = 1,
         manufacturer = "Ducati",
         model = "Panigale V4",
         powerPS = 208,
         type = MotorcycleType.SPORT,
-        yearOfConstruction = 2021,
-        age = 4
+        yearOfConstruction = 2021
     )
     MotorcycleItem(
         motorcycle = motorcycle,
