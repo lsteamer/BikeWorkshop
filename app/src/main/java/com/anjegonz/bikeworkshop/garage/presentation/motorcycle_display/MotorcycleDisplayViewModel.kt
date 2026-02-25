@@ -31,4 +31,9 @@ class MotorcycleDisplayViewModel : ViewModel() {
         }
     }
 
+
+    fun loadMotorcycles(motorcycleId: Int){
+
+    }
+
 }

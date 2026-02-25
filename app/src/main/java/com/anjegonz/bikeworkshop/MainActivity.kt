@@ -26,6 +26,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.anjegonz.bikeworkshop.garage.presentation.motorcycle_add.MotorcycleAddRoot
 import com.anjegonz.bikeworkshop.garage.presentation.motorcycle_add.MotorcycleAddViewModel
 import com.anjegonz.bikeworkshop.garage.presentation.motorcycle_display.MotorcycleDisplayRoot
@@ -44,15 +45,14 @@ class MainActivity : ComponentActivity() {
         setContent {
             BikeWorkshopTheme {
                 val navController = rememberNavController()
+
+                //Current screen's entry from navigation stack
                 val currentBackStackEntry by navController.currentBackStackEntryAsState()
 
-                //current
+                //Just the destination info e.g. NavRoute.Motorcycle....
                 val currentDestination = currentBackStackEntry?.destination
 
-                // Determine if we should show back button
-                val canNavigateBack = !currentDestination.isRoute(NavRoute.MotorcycleList)
-
-                // Determine title
+                // Determine title for the Toolbar
                 val currentTitle = when {
                     currentDestination.isRoute(NavRoute.MotorcycleList) -> "My Motorcycles"
                     currentDestination.isRoute(NavRoute.MotorcycleAdd) -> "Add Motorcycle"
@@ -60,8 +60,8 @@ class MainActivity : ComponentActivity() {
                     else -> "Bike Workshop"
                 }
 
-                // are we on the
-                val isOnStartScreen = currentDestination.isRoute(NavRoute.MotorcycleList)
+                // are we on the ListScreen
+                val isOnListScreen = currentDestination.isRoute(NavRoute.MotorcycleList)
 
 
                 Scaffold(
@@ -69,7 +69,8 @@ class MainActivity : ComponentActivity() {
                         TopAppBar(
                             title = { Text(currentTitle) },
                             navigationIcon = {
-                                if (canNavigateBack) {
+                                //If we're not on ListScreen, we can navigate back
+                                if (!isOnListScreen) {
                                     IconButton(onClick = { navController.navigateUp() }) {
                                         Icon(
                                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -86,7 +87,7 @@ class MainActivity : ComponentActivity() {
                     },
                     floatingActionButton = {
                         // Only show FAB on list screen
-                        if (isOnStartScreen) {
+                        if (isOnListScreen) {
                             FloatingActionButton(
                                 onClick = { navController.navigate(NavRoute.MotorcycleAdd) },
                                 containerColor = MaterialTheme.colorScheme.primary
@@ -114,7 +115,7 @@ class MainActivity : ComponentActivity() {
                                         null -> navController.navigate(NavRoute.MotorcycleAdd)
                                         else -> navController.navigate(
                                             NavRoute.MotorcycleDisplay(
-                                                motorcycle.id
+                                                motorcycle.id,
                                             )
                                         )
                                     }
@@ -129,10 +130,12 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
-                        composable<NavRoute.MotorcycleDisplay> {
+                        composable<NavRoute.MotorcycleDisplay> { backStackEntry ->
+                            val args = backStackEntry.toRoute<NavRoute.MotorcycleDisplay>()
                             val viewModel = koinViewModel<MotorcycleDisplayViewModel>()
                             MotorcycleDisplayRoot(
-                                viewModel = viewModel
+                                viewModel = viewModel,
+                                args.id
                             )
                         }
                     }

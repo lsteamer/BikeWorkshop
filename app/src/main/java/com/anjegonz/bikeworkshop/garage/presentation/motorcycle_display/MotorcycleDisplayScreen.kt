@@ -1,6 +1,7 @@
 package com.anjegonz.bikeworkshop.garage.presentation.motorcycle_display
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -9,9 +10,14 @@ import com.anjegonz.bikeworkshop.ui.theme.BikeWorkshopTheme
 
 @Composable
 fun MotorcycleDisplayRoot(
-    viewModel: MotorcycleDisplayViewModel = viewModel()
+    viewModel: MotorcycleDisplayViewModel = viewModel(),
+    motorcycleID : Int
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+
+    LaunchedEffect(motorcycleID) {
+        viewModel.loadMotorcycles(motorcycleID)
+    }
 
     MotorcycleDisplayScreen(
         state = state,
