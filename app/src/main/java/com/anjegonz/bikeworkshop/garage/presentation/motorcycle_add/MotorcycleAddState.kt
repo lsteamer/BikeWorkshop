@@ -12,5 +12,5 @@ data class MotorcycleAddState(
     val yearOfConstructionValue: String = "",
 
     //validate this proper
-    val areAllFieldsFilled: Boolean = true
+    val areAllFieldsFilled: Boolean = false
 )

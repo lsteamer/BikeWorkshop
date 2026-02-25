@@ -8,27 +8,27 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.time.Year
 
 class MotorcycleAddViewModel(
     private val motorcycleRepository: MotorcycleRepository
 ) : ViewModel() {
-
-    private var hasLoadedInitialData = false
 
     private val _navigateBack = MutableSharedFlow<Unit>()
     val navigateBack = _navigateBack.asSharedFlow()
 
     private val _state = MutableStateFlow(MotorcycleAddState())
     val state = _state
-        .onStart {
-            if (!hasLoadedInitialData) {
-                /** Load initial data here **/
-                hasLoadedInitialData = true
-            }
+        .map { state ->
+            state.copy(
+                areAllFieldsFilled = validateFields(state)
+            )
+
         }
         .stateIn(
             scope = viewModelScope,
@@ -115,6 +115,21 @@ class MotorcycleAddViewModel(
 
             }
         }
+    }
+
+    private fun validateFields(state: MotorcycleAddState): Boolean {
+
+        return state.run {
+            val yearInt = yearOfConstructionValue.toIntOrNull()
+            val currentYear = Year.now().value
+            manufacturerText.isNotBlank() &&
+                    modelText.isNotBlank() &&
+                    powerPS.isNotBlank() &&
+                    yearInt != null &&
+                    yearInt in 1900..currentYear
+        }
+
+
     }
 
 }
