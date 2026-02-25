@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.DropdownMenuItem
@@ -20,6 +21,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.anjegonz.bikeworkshop.garage.domain.MotorcycleType
@@ -28,13 +31,13 @@ import com.anjegonz.bikeworkshop.garage.presentation.motorcycle_add.MotorcycleAd
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MotorcycleTextFields(
+    modifier: Modifier = Modifier,
     manufacturerText: String,
     modelText: String,
     powerPS: String,
     motorcycleType: MotorcycleType = MotorcycleType.CRUISER,
     yearOfConstructionValue: String,
-    onAction: (MotorcycleAddAction) -> Unit,
-    modifier: Modifier = Modifier
+    onAction: (MotorcycleAddAction) -> Unit
 ){
 
 
@@ -57,9 +60,16 @@ fun MotorcycleTextFields(
     OutlinedTextField(
         value = powerPS,
         onValueChange = {
-            onAction(MotorcycleAddAction.OnPowerPSTextFieldChange(it))
+            if (it.all { char -> char.isDigit() }) {
+                onAction(MotorcycleAddAction.OnPowerPSTextFieldChange(it))
+            }
         },
         label = { Text("PowerPS") },
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Number,
+            imeAction = ImeAction.Done
+        ),
+
     )
 
 
@@ -70,10 +80,9 @@ fun MotorcycleTextFields(
     ) {
 
         OutlinedTextField(
+            modifier = Modifier.menuAnchor(),
             value = motorcycleType.name,
-            onValueChange = { wa ->
-
-            },
+            onValueChange = {},
             readOnly = true,
             label = {
                 Text("MotorcycleType")
@@ -81,7 +90,7 @@ fun MotorcycleTextFields(
             trailingIcon = {
                 ExposedDropdownMenuDefaults.TrailingIcon(expanded = dropDownMenuExpanded)
             },
-            colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(),
+            colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors()
         )
         ExposedDropdownMenu(
             expanded = dropDownMenuExpanded,
@@ -115,9 +124,15 @@ fun MotorcycleTextFields(
     OutlinedTextField(
         value = yearOfConstructionValue,
         onValueChange = {
-            onAction(MotorcycleAddAction.OnYearTextFieldChange(it))
+            if (it.all { char -> char.isDigit() }) {
+                onAction(MotorcycleAddAction.OnYearTextFieldChange(it))
+            }
         },
         label = { Text("Year of Construction") },
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Number,
+            imeAction = ImeAction.Done
+        ),
     )
 }
 
