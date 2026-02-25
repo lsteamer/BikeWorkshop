@@ -36,6 +36,7 @@ import com.anjegonz.bikeworkshop.garage.presentation.motorcycle_list.MotorcycleL
 import com.anjegonz.bikeworkshop.navigation.NavRoute
 import com.anjegonz.bikeworkshop.ui.theme.BikeWorkshopTheme
 import org.koin.androidx.compose.koinViewModel
+import kotlin.reflect.KClass
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -54,14 +55,14 @@ class MainActivity : ComponentActivity() {
 
                 // Determine title for the Toolbar
                 val currentTitle = when {
-                    currentDestination.isRoute(NavRoute.MotorcycleList) -> "My Motorcycles"
-                    currentDestination.isRoute(NavRoute.MotorcycleAdd) -> "Add Motorcycle"
-                    currentDestination?.route?.contains("MotorcycleDisplay") == true -> "Motorcycle Details"
+                    currentDestination.isRoute(NavRoute.MotorcycleList::class) -> "My Motorcycles"
+                    currentDestination.isRoute(NavRoute.MotorcycleAdd::class) -> "Add Motorcycle"
+                    currentDestination.isRoute(NavRoute.MotorcycleDisplay::class) -> "Motorcycle Details"
                     else -> "Bike Workshop"
                 }
 
                 // are we on the ListScreen
-                val isOnListScreen = currentDestination.isRoute(NavRoute.MotorcycleList)
+                val isOnListScreen = currentDestination.isRoute(NavRoute.MotorcycleList::class)
 
 
                 Scaffold(
@@ -86,7 +87,7 @@ class MainActivity : ComponentActivity() {
                         )
                     },
                     floatingActionButton = {
-                        // Only show FAB on list screen
+                        // Only show FAB on list screen, takes us to MotorcycleAdd feature
                         if (isOnListScreen) {
                             FloatingActionButton(
                                 onClick = { navController.navigate(NavRoute.MotorcycleAdd) },
@@ -101,11 +102,13 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 ) { paddingValues ->
+                    //NavHost holding the three screens
                     NavHost(
                         navController = navController,
                         startDestination = NavRoute.MotorcycleList,
                         modifier = Modifier.padding(paddingValues)
                     ) {
+                        //MotorcycleList Feature. Showing the screen
                         composable<NavRoute.MotorcycleList> {
                             val viewModel = koinViewModel<MotorcycleListViewModel>()
                             MotorcycleListRoot(
@@ -123,6 +126,7 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         }
+                        //MotorcycleAdd feature, showing the TextFiels to add a Motorcycle
                         composable<NavRoute.MotorcycleAdd> {
                             val viewModel = koinViewModel<MotorcycleAddViewModel>()
                             MotorcycleAddRoot(
@@ -130,7 +134,7 @@ class MainActivity : ComponentActivity() {
                                 onNavigateBack = { navController.navigateUp() }
                             )
                         }
-
+                        //MotorcycleDisplay
                         composable<NavRoute.MotorcycleDisplay> { backStackEntry ->
                             val args = backStackEntry.toRoute<NavRoute.MotorcycleDisplay>()
                             val viewModel = koinViewModel<MotorcycleDisplayViewModel>()
@@ -150,8 +154,8 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun NavDestination?.isRoute(route: NavRoute): Boolean {
-        return this?.route?.contains(route::class.simpleName.orEmpty()) == true
+    private fun NavDestination?.isRoute(route: KClass<out NavRoute>): Boolean {
+        return this?.route?.contains(route.simpleName.orEmpty()) == true
     }
 }
 

@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.anjegonz.bikeworkshop.garage.presentation.motorcycle_display.components.MotorcycleInformation
 import com.anjegonz.bikeworkshop.garage.presentation.motorcycle_display.components.MotorcycleRow
 import com.anjegonz.bikeworkshop.ui.theme.BikeWorkshopTheme
 

@@ -28,8 +28,11 @@ fun MotorcycleListRoot(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    //Root is different from screen because that way we can better preview the whole screen
-    // and also consider testing without needing a viewModel
+    /**
+     * DOCUMENTATION calimoto
+     * Root is different from screen because that way we can better preview the whole screen
+     * and also consider testing without needing a viewModel
+     **/
     MotorcycleListScreen(
         state = state,
         onAction = { action ->
@@ -56,7 +59,8 @@ fun MotorcycleListScreen(
 
         val lazyListState = rememberLazyListState()
         if (state.motorcycles.isEmpty()) {
-            //A nice image and an "empty screen" if time permits
+            //I wanted to have a better design here, when the screen was empty.
+            //maybe even include an image
             Box(
                 modifier = Modifier
                     .fillMaxSize(),

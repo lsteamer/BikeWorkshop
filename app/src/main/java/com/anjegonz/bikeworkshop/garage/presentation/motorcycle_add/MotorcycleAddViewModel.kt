@@ -4,12 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.anjegonz.bikeworkshop.garage.domain.Motorcycle
 import com.anjegonz.bikeworkshop.garage.domain.MotorcycleRepository
+import com.anjegonz.bikeworkshop.garage.domain.core.Result
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -36,7 +36,9 @@ class MotorcycleAddViewModel(
             initialValue = MotorcycleAddState()
         )
 
-    /* given that this "screen" has a lot of actions. It is here where I think one can finally
+    /**
+     * DOCUMENTATION calimoto
+     * given that this "screen" has a lot of actions. It is here where I think one can finally
      * see the benefits of using an architecture like this.
      *
      * It's still too much for this small project, but as projects grow in size,
@@ -63,9 +65,19 @@ class MotorcycleAddViewModel(
                     )
                 }
                 viewModelScope.launch {
-                    motorcycle.let { motorcycle ->
-                        motorcycleRepository.insertMotorcycle(motorcycle)
-                        _navigateBack.emit(Unit)
+                    when(motorcycleRepository.insertMotorcycle(motorcycle)){
+                        /**
+                         * DOCUMENTATION calimoto
+                         * This is another "aspect" that is/was a bit overkill for this small app.
+                         * But in a larger, more complex app, this kind of approach would be very
+                         * adaptable and will allow you to browse any sort of Failures and then
+                         * act upon them ON the UI.
+                         */
+                        is Result.Success -> _navigateBack.emit(Unit)
+                        is Result.Failure -> {
+                            println("There was an issue")
+                            //Here one would ideally show a notification to the user.
+                        }
                     }
                 }
 

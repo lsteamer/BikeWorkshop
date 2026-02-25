@@ -10,7 +10,6 @@ data class MotorcycleAddState(
     val powerPS: String = "",
     val motorcycleType: MotorcycleType = MotorcycleType.CRUISER,
     val yearOfConstructionValue: String = "",
-
-    //validate this proper
     val areAllFieldsFilled: Boolean = false
+
 )
