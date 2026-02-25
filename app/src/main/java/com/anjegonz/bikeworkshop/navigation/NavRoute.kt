@@ -10,5 +10,5 @@ sealed interface NavRoute {
     data object MotorcycleAdd : NavRoute
 
     @Serializable
-    data class MotorcycleDisplay(val id: Int) : NavRoute
+    data class MotorcycleDisplay(val id: Int, val manufacturerName: String) : NavRoute
 }

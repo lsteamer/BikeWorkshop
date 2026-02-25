@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.anjegonz.bikeworkshop.garage.domain.Motorcycle
 import com.anjegonz.bikeworkshop.garage.domain.MotorcycleType
+import com.anjegonz.bikeworkshop.garage.presentation.core.components.MotorcycleItem
 
 @Composable
 fun MotorcycleList(
@@ -37,6 +38,7 @@ fun MotorcycleList(
                 onClick = {
                     onClick(motorcycle)
                 },
+                false,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),

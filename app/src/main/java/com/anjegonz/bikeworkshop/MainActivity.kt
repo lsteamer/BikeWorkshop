@@ -116,6 +116,7 @@ class MainActivity : ComponentActivity() {
                                         else -> navController.navigate(
                                             NavRoute.MotorcycleDisplay(
                                                 motorcycle.id,
+                                                motorcycle.manufacturer
                                             )
                                         )
                                     }
@@ -135,7 +136,9 @@ class MainActivity : ComponentActivity() {
                             val viewModel = koinViewModel<MotorcycleDisplayViewModel>()
                             MotorcycleDisplayRoot(
                                 viewModel = viewModel,
-                                args.id
+                                args.id,
+                                args.manufacturerName,
+                                onNavigateBack = { navController.navigateUp() }
                             )
                         }
                     }

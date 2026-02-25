@@ -28,7 +28,8 @@ fun MotorcycleListRoot(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    //Root is different from screen because that way we can test the screen without needing a viewModel
+    //Root is different from screen because that way we can better preview the whole screen
+    // and also consider testing without needing a viewModel
     MotorcycleListScreen(
         state = state,
         onAction = { action ->

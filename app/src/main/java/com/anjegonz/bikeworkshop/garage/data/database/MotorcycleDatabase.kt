@@ -14,8 +14,4 @@ import com.anjegonz.bikeworkshop.garage.data.converters.Converters
 )
 abstract class MotorcycleDatabase: RoomDatabase() {
     abstract val motorcycleDao: MotorcycleDao
-
-    companion object {
-        const val DB_NAME = "motorcycles.db"
-    }
 }

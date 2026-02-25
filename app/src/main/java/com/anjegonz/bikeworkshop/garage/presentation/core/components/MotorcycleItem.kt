@@ -1,4 +1,4 @@
-package com.anjegonz.bikeworkshop.garage.presentation.motorcycle_list.components
+package com.anjegonz.bikeworkshop.garage.presentation.core.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -29,6 +30,7 @@ import com.anjegonz.bikeworkshop.garage.presentation.core.toImageRes
 fun MotorcycleItem(
     motorcycle: Motorcycle,
     onClick: () -> Unit,
+    isWrappingContent: Boolean,
     modifier: Modifier = Modifier
 ) {
 
@@ -40,8 +42,14 @@ fun MotorcycleItem(
     ) {
         Row(
             modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
+                .then(
+                    if (isWrappingContent) Modifier
+                        .wrapContentWidth()
+                        .padding(12.dp)
+                    else Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
@@ -60,7 +68,10 @@ fun MotorcycleItem(
 
             Column(
                 modifier = Modifier
-                    .weight(1f),
+                    .then(
+                        if (!isWrappingContent) Modifier.weight(1f)
+                        else Modifier
+                    ),
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
@@ -84,7 +95,7 @@ fun MotorcycleItem(
 
 @Preview
 @Composable
-private fun PreviewMotorcycleItem() {
+private fun PreviewMotorcycleItemRow() {
     val motorcycle = Motorcycle(
         id = 1,
         manufacturer = "Ducati",
@@ -95,6 +106,24 @@ private fun PreviewMotorcycleItem() {
     )
     MotorcycleItem(
         motorcycle = motorcycle,
-        onClick = {}
+        onClick = {},
+        true
+    )
+}
+@Preview
+@Composable
+private fun PreviewMotorcycleItemList() {
+    val motorcycle = Motorcycle(
+        id = 1,
+        manufacturer = "Ducati",
+        model = "Panigale V4",
+        powerPS = 208,
+        type = MotorcycleType.SPORT,
+        yearOfConstruction = 2021
+    )
+    MotorcycleItem(
+        motorcycle = motorcycle,
+        onClick = {},
+        false
     )
 }

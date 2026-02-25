@@ -53,7 +53,7 @@ class MotorcycleAddViewModel(
         when (action) {
             MotorcycleAddAction.OnClickOnSubmit -> {
 
-                val motorcycle = state.value?.run {
+                val motorcycle = state.value.run {
                     Motorcycle(
                         manufacturer = manufacturerText,
                         model = modelText,
@@ -63,7 +63,7 @@ class MotorcycleAddViewModel(
                     )
                 }
                 viewModelScope.launch {
-                    motorcycle?.let { motorcycle ->
+                    motorcycle.let { motorcycle ->
                         motorcycleRepository.insertMotorcycle(motorcycle)
                         _navigateBack.emit(Unit)
                     }

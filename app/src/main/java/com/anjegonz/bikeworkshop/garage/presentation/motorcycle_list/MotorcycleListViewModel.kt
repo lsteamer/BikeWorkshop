@@ -14,11 +14,9 @@ import kotlinx.coroutines.flow.update
 
 class MotorcycleListViewModel(
     private val motorcycleRepository: MotorcycleRepository
-): ViewModel() {
+) : ViewModel() {
 
     private var hasLoadedInitialData = false
-
-    private var observeMotorcyclesJob: Job? = null
 
     private val _state = MutableStateFlow(MotorcycleListState())
     val state = _state
@@ -33,15 +31,15 @@ class MotorcycleListViewModel(
             started = SharingStarted.WhileSubscribed(5_000L),
             initialValue = MotorcycleListState()
         )
-    //Funny that we won't be needing an "onAction" in this viewmodel
 
-    private fun observeMotorcycles(){
-        observeMotorcyclesJob?.cancel()
-        observeMotorcyclesJob = motorcycleRepository.getMotorcycles()
+    private fun observeMotorcycles() {
+        motorcycleRepository.getMotorcycles()
             .onEach { motorcycles ->
-                _state.update { it.copy(
-                    motorcycles = motorcycles
-                ) }
+                _state.update {
+                    it.copy(
+                        motorcycles = motorcycles
+                    )
+                }
             }
             .launchIn(viewModelScope)
     }
